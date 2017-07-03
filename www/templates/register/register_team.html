@@ -1,0 +1,48 @@
+    <ion-view view-title="Register team">
+    	<ion-content>
+			<div class="list">
+				<form name="registerTeamForm" novalidate>
+					<label class="item item-input item-select">
+						<span class="input-label">Choose players <i class="ion-icon ion-asterisk required-input"></i></span>
+						<select name="players" multiple required ng-model="team.players"
+						ng-options="player.id as player.name disable when (team.players.length == 1 || team.players.length > 2) 
+						for player in players | orderBy: 'name'">
+						</select>
+						<div class="form-error" ng-show="registerTeamForm.players.$touched && registerTeamForm.players.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+						</div>					
+					</label>
+					<label class="item item-label stacked-label">
+						<span class="input-label">Name <i class="ion-icon ion-asterisk required-input"></i></span>
+						<input type="text" name="name" ng-model="team.name" required ng-maxlength="60">
+						<div class="form-error" ng-show="registerTeamForm.name.$touched && registerTeamForm.name.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+							<span ng-show="registerTeamForm.name.$error.required">Name is required</span>
+							<span ng-show="registerTeamForm.name.$error.maxlength">Name is too long</span>
+						</div>			
+					</label>
+					<label class="item item-label stacked-label">
+						<span class="input-label">Bio (optional)</span>
+						<textarea name="bio" ng-model="team.bio"></textarea>
+					</label>
+					<div class="item item-label">
+						<span class="input-label">Avatar (optional)</span>
+						<div ng-switch="team.avatar.selected">
+							<div class="row row-center photo-selected" ng-switch-when="true">
+								<div class="col col-50">Photo selected.</div>
+								<button class="button button-clear button-energized col col-50" 
+								ng-click="selectNewPhoto(team)">Select new</button>
+							</div>
+							<div class="row" ng-switch-default>
+								<button class="button button-clear button-royal col col-50"
+								ng-click="getGalleryPhoto(team)">Choose from gallery</button>		
+								<button class="button button-clear button-calm col col-50" ng-click="takePhoto(team)">Take photo</button>		
+							</div>
+						</div>						
+					</div>
+					<input type="submit" value="Register" ng-disabled="registerTeamForm.$invalid" ng-click="registerTeam(team)"
+					class="button button-block button-balanced button-full">					
+				</form>
+			</div>
+    	</ion-content>
+    </ion-view>

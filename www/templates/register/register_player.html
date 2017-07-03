@@ -1,0 +1,57 @@
+    <ion-view view-title="Register player">
+    	<ion-content>
+			<div class="list">
+				<form name="registerPlayerForm" novalidate>
+					<label class="item item-label stacked-label">
+						<span class="input-label">Username <i class="ion-icon ion-asterisk required-input"></i></span>
+						<input type="text" name="username" ng-model="player.username" required ng-maxlength="30">
+						<div class="form-error" ng-show="registerPlayerForm.username.$touched && registerPlayerForm.username.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+							<span ng-show="registerPlayerForm.username.$error.required">Username is required</span>
+							<span ng-show="registerPlayerForm.username.$error.maxlength">Username is too long</span>
+						</div>
+					</label>
+					<label class="item item-label stacked-label">
+						<span class="input-label">Name <i class="ion-icon ion-asterisk required-input"></i></span>
+						<input type="text" name="name" ng-model="player.name" required ng-maxlength="60">
+						<div class="form-error" ng-show="registerPlayerForm.name.$touched && registerPlayerForm.name.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+							<span ng-show="registerPlayerForm.name.$error.required">Name is required</span>
+							<span ng-show="registerPlayerForm.name.$error.maxlength">Name is too long</span>
+						</div>						
+					</label>
+					<label class="item item-label stacked-label">
+						<span class="input-label">Email <i class="ion-icon ion-asterisk required-input"></i></span>
+						<input type="email" name="email" ng-model="player.email" required ng-maxlength="80">
+						<div class="form-error" ng-show="registerPlayerForm.email.$touched && registerPlayerForm.email.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+							<span ng-show="registerPlayerForm.email.$error.required">Email is required</span>
+							<span ng-show="registerPlayerForm.email.$error.email">Email is invalid</span>
+							<span ng-show="registerPlayerForm.email.$error.maxlength">Email is too long</span>
+						</div>						
+					</label>
+					<label class="item item-label stacked-label">
+						<span class="input-label">Bio (optional)</span>
+						<textarea name="bio" ng-model="player.bio"></textarea>
+					</label>				
+					<div class="item item-label">
+						<span class="input-label">Avatar (optional)</span>
+						<div ng-switch="player.avatar.selected">
+						<div class="row row-center photo-selected" ng-switch-when="true">
+							<div class="col col-50">Photo selected.</div>
+							<button class="button button-clear button-energized col col-50" 
+							ng-click="selectNewPhoto(player)">Select new</button>
+						</div>
+						<div class="row" ng-switch-default>
+							<button class="button button-clear button-royal col col-50"
+							ng-click="getGalleryPhoto(player)">Choose from gallery</button>		
+							<button class="button button-clear button-calm col col-50" ng-click="takePhoto(player)">Take photo</button>		
+						</div>
+					</div>						
+					</div>
+					<input type="submit" value="Register" ng-disabled="registerPlayerForm.$invalid" ng-click="registerPlayer(player)"
+					class="button button-balanced button-block button-full">				
+				</form>
+			</div>
+		</ion-content>
+    </ion-view>

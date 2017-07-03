@@ -1,0 +1,136 @@
+    <ion-view view-title="Select Teams">
+		<ion-content>
+			<form name="chooseTeamsForm" novalidate>			
+				<label class="form-label">Team 1</label>
+				<ion-radio name="teamOneOption" ng-model="teamOptions.teamOne" required
+				ng-change="teamOneChange()" value="full">Full team</ion-radio>
+				<ion-radio name="teamOneOption" ng-model="teamOptions.teamOne" required
+				ng-change="teamOneChange()" value="individual" ng-hide="isCompetative">Individual players</ion-radio>
+				<ion-radio name="teamOneOption" ng-model="teamOptions.teamOne" required
+				ng-change="teamOneChange()" value="new" ng-hide="isCompetative">New players</ion-radio>
+				
+				<div ng-if="teamOptions.teamOne === 'full'">
+					<label class="item item-input item-select">
+						<span class="input-label">Choose team</span>
+						<select name="teamOneFull" ng-model="teamOne.id" required="{{ teamOptions.teamOne === 'full' }}"
+						ng-options="team.id as team.name for team in teams | orderBy:'name'" ng-change="teamSelection('full', teamOne.id)">
+						</select>
+						<div class="form-error" ng-show="chooseTeamsForm.teamOneFull.$touched && chooseTeamsForm.teamOneFull.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+						</div>							
+					</label>
+				</div>
+
+				<div ng-if="teamOptions.teamOne === 'individual'">
+					<label class="item item-input item-select">
+						<span class="input-label">Choose players</span>
+						<select name="teamOneIndividual" ng-model="teamOne.players" multiple 
+						required="{{ teamOptions.teamOne === 'individual' }}" ng-change="teamSelection('individual', teamOne.players)"
+						ng-options="player.id as player.name disable when (teamOne.players.length == 1 || teamOne.players.length > 2)
+						for player in players | orderBy: 'name'">
+						</select>
+						<div class="form-error" ng-show="chooseTeamsForm.teamOneIndividual.$touched && chooseTeamsForm.teamOneIndividual.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+						</div>		
+					</label>
+				</div>
+
+				<div ng-if="teamOptions.teamOne === 'new'">
+					<label class="item item-label stacked-label">
+						<span class="input-label">Player 1 <i class="ion-icon ion-asterisk required-input"></i></span>
+						<input type="text" name="teamOnePlayerOne" ng-model="teamOne.players[0].name"
+						required="{{ teamOptions.teamOne === 'new' }}">
+						<div class="form-error" ng-show="chooseTeamsForm.teamOnePlayerOne.$touched && chooseTeamsForm.teamOnePlayerOne.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+							<span>Name is required</span>
+						</div>						
+					</label>
+					<label class="item item-label stacked-label">
+						<span class="input-label">Player 2 <i class="ion-icon ion-asterisk required-input"></i></span>
+						<input type="text" name="teamOnePlayerTwo" ng-model="teamOne.players[1].name"
+						required="{{ teamOptions.teamOne === 'new' }}">
+						<div class="form-error" ng-show="chooseTeamsForm.teamOnePlayerTwo.$touched && chooseTeamsForm.teamOnePlayerTwo.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+							<span>Name is required</span>
+						</div>						
+					</label>
+				</div>
+
+				<div ng-if="teamOptions.teamOne === 'individual' || teamOptions.teamOne === 'new'">
+					<label class="item item-label stacked-label">
+						<span class="input-label">Team name (optional)</span>
+						<input type="text" name="team" ng-model="teamOne.name">
+					</label>			
+				</div>
+
+				<label class="form-label">Team 2</label>
+				<ion-radio name="teamTwoOption" ng-model="teamOptions.teamTwo" required
+				ng-change="teamTwoChange()" value="full">Full team</ion-radio>
+				<ion-radio name="teamTwoOption" ng-model="teamOptions.teamTwo" required
+				ng-change="teamTwoChange()" value="individual" ng-hide="isCompetative">Individual players</ion-radio>
+				<ion-radio name="teamTwoOption" ng-model="teamOptions.teamTwo" required
+				ng-change="teamTwoChange()" value="new" ng-hide="isCompetative">New players</ion-radio>
+
+				<div ng-if="teamOptions.teamTwo === 'full'">
+					<label class="item item-input item-select">
+						<span class="input-label">Choose team</span>
+						<select name="teamTwoFull" ng-model="teamTwo.id" 
+						ng-options="team.id as team.name disable when (team.id === disabledValues.team.id || (disabledValues.team.player1_id === team.player1_id || disabledValues.team.player2_id === team.player2_id)) 
+						for team in teams | orderBy:'name'"
+						required="{{ teamOptions.teamTwo === 'full' }}">
+						</select>
+						<div class="form-error" ng-show="chooseTeamsForm.teamTwoFull.$touched && chooseTeamsForm.teamTwoFull.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+						</div>
+					</label>
+				</div>
+
+				<div ng-if="teamOptions.teamTwo === 'individual'">
+					<label class="item item-input item-select">
+						<span class="input-label">Choose players</span>
+						<select name="teamTwoIndividual" ng-model="teamTwo.players" multiple 
+						required="{{ teamOptions.teamTwo === 'individual' }}" 
+						ng-options="player.id as player.name 
+						disable when ((disabledValues.players.indexOf(player.id) > -1) || teamTwo.players.length == 1 
+						|| teamTwo.players.length > 2 || 
+						(disabledValues.team.player1_id === player.id || disabledValues.team.player2_id === player.id)) 
+						for player in players | orderBy: 'name'">
+						</select>
+						<div class="form-error" ng-show="chooseTeamsForm.teamTwoIndividual.$touched && chooseTeamsForm.teamTwoIndividual.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+						</div>
+					</label>
+				</div>
+
+				<div ng-if="teamOptions.teamTwo === 'new'">
+					<label class="item item-label stacked-label">
+						<span class="input-label">Player 1 <i class="ion-icon ion-asterisk required-input"></i></span>
+						<input type="text" name="teamTwoPlayerOne" ng-model="teamTwo.players[0].name" 
+						required="{{ teamOptions.teamTwo === 'new' }}">
+						<div class="form-error" ng-show="chooseTeamsForm.teamTwoPlayerOne.$touched && chooseTeamsForm.teamTwoPlayerOne.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+							<span>Name is required</span>
+						</div>							
+					</label>
+					<label class="item item-label stacked-label">
+						<span class="input-label">Player 2 <i class="ion-icon ion-asterisk required-input"></i></span>
+						<input type="text" name="teamTwoPlayerTwo" ng-model="teamTwo.players[1].name"
+						required="{{ teamOptions.teamTwo === 'new' }}">
+						<div class="form-error" ng-show="chooseTeamsForm.teamTwoPlayerTwo.$touched && chooseTeamsForm.teamTwoPlayerTwo.$invalid">
+							<i class="ion-icon ion-android-alert"></i>
+							<span>Name is required</span>
+						</div>							
+					</label>
+				</div>
+
+				<div ng-if="teamOptions.teamTwo === 'individual' || teamOptions.teamTwo === 'new'">
+					<label class="item item-label stacked-label">
+						<span class="input-label">Team name (optional)</span>
+						<input type="text" name="team" ng-model="teamTwo.name">
+					</label>			
+				</div>
+				<a href="#/app/game" class="button button-balanced button-full" ng-disabled="chooseTeamsForm.$invalid"
+				ng-click="setTeams()">Start</a>
+			</form>
+		</ion-content>
+    </ion-view>

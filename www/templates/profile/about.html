@@ -1,0 +1,18 @@
+    <ion-view view-title="About">
+		<ion-content padding="true">
+			<div class="avatar" ng-switch="profile.avatar || 'null'">
+				<div class="no-pic" ng-switch-when="null">
+					<i class="ion-icon ion-person"></i>
+				</div>
+				<img ng-switch-default ng-src="{{ profile.avatar }}" alt="{{ profile.name }} Avatar">
+				<h2>{{ profile.name }}</h2>
+				<p>{{ profile.bio }}</p>
+			</div>
+			<div ng-if="profile.players">
+				<h4>Players in team</h4>
+				<ul>
+					<li ng-repeat="player in profile.players">{{ player.name }}</li>
+				</ul>
+			</div>
+		</ion-content>
+    </ion-view>

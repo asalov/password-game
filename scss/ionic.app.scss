@@ -1,0 +1,255 @@
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+$loading-bg-color: transparent;
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+
+$table-border-color:#eee;
+
+
+// Mixins
+@mixin translate($x, $y){
+	-webkit-transform: translate($x, $y);
+	transform: translate($x, $y);
+}
+
+@mixin centerElement{
+	margin-left:auto;
+	margin-right:auto;
+	display:block;
+}
+
+@mixin centerElementAbsolute{
+	position:absolute;
+	top:50%;
+	left:50%;
+	@include translate(-50%, -50%)
+}
+
+@mixin profilePic($width: 200px, $height:200px){
+	width:$width;
+	height:$height;
+	border-radius:50%;
+	@include centerElement
+}
+
+.overflow-scroll{
+	overflow-y:auto;
+}
+
+.button.button-stable{
+	border:1px solid #aaa;
+}
+
+.form-label{
+	display:block;
+	font-size:20px;
+	margin:10px 10px 15px;
+}
+
+.stacked-label{
+	textarea{
+		min-height:80px;
+	}
+
+	input, textarea{
+		width:100%;
+	}
+}
+
+.form-error{
+	color:$assertive;
+	font-size:0.8rem;
+}
+
+.required-input{
+	color:$assertive;
+	font-size:0.25rem;
+
+	&:before{
+		vertical-align:top;	
+	}
+}
+
+.photo-selected{
+	> div{
+		font-size:$button-font-size;
+	}
+
+	button{
+		text-align:left;
+		max-height:none;
+	}
+}
+
+// Ranking table
+.table-header .col, .table-row .col{
+	padding:5% 5px;
+}
+
+.table-header{
+	background:$royal;
+	color:#fff;
+}
+
+.table-row{
+
+	&:nth-child(even){
+		background-color:#eee;	
+	}
+	
+	&:nth-child(odd){
+		background-color:#fff;
+	}
+}
+
+// Stats
+.stats{
+
+	.row{
+		padding:0;
+		text-align:center;
+		border:1px solid $table-border-color;
+		border-bottom:none;
+
+		&:last-child{
+			border-bottom:1px solid $table-border-color;
+		}
+	}
+
+	.col{
+		padding:15px 10px;
+
+		&:first-child{
+			border-right:1px solid $table-border-color;
+		}
+	}
+}
+
+// Profile
+.avatar{
+
+	img{
+		@include profilePic
+	}
+
+	h2{
+		text-align:center;
+	}
+
+	p{
+		text-align:justify;
+		padding:5px 10px;		
+	}
+}
+
+// Game screen
+.scoreboard-header{
+	text-align:center;
+}
+
+.scoreboard-body{
+
+	.separator{
+		text-align:center;
+	}
+}
+
+.team-info{
+	position:relative;
+}
+
+.team-score, .team-rounds{
+	position:absolute;
+}
+
+.team-score{
+	top:40%;
+	font-size:3rem;
+}
+
+.team-rounds{
+	top:75%;
+	font-weight:bold;
+}
+
+.team-info.left{
+
+	.team-score{
+		right:5px;
+	}
+
+	.team-rounds{
+		right:0;
+	}
+}
+
+.team-info.right{
+	text-align:right;
+
+	.team-score{
+		left:5px;
+	}
+
+	.team-rounds{
+		left:0;
+	}
+}
+
+.the-word{
+	width:100%;
+	font-size:2.5rem;
+	text-align:center;
+	padding:20px 0;
+}
+
+// No profile
+.no-pic{
+	position:relative;
+	background:#ddd;
+	@include profilePic
+
+	i{
+		font-size:11rem;
+		color:#fff;
+		@include centerElementAbsolute		
+	}
+}
+
+.no-pic.small{
+	position:absolute;
+	top:$item-padding;
+	left:$item-padding;
+	@include profilePic($item-avatar-width, $item-avatar-height)
+	
+
+	i{
+		font-size:2rem;
+	}
+}
+
+// Confirmation popup
+.confirmation{
+	
+	.popup{
+		border-radius:$border-radius-large;
+	}
+
+	.popup-head{
+		padding:0;
+		border:none;		
+	}
+
+	.popup-body{
+		color:darken($balanced, 15%);
+		text-align:center;
+		font-size:$font-size-large;
+		padding:20px 0;
+
+		i{
+			padding-right:2px;
+		}
+	}
+}

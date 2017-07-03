@@ -1,0 +1,20 @@
+    <ion-view view-title="Team leaderboard">
+    	<ion-content padding="true">
+    		<div class="ranking-table">
+	       		<div class="row table-header">
+					<div class="col col-20">Rank</div>
+					<div class="col">Name</div>
+					<div class="col col-10">G</div>
+					<div class="col col-10">W</div>
+					<div class="col col-10">L</div>
+	    		</div>
+				<div ng-repeat="team in teams | orderBy: 'wins': true" class="row table-row">
+					<div class="col col-20">{{ $index + 1 }}</div>
+					<div class="col" ng-click="showProfile('team', team.id)">{{ team.name }}</div>
+					<div class="col col-10">{{ team.matches }}</div>
+					<div class="col col-10">{{ team.wins }}</div>
+					<div class="col col-10">{{ team.losses }}</div>
+				</div>  			
+    		</div> 		
+		</ion-content>
+    </ion-view>

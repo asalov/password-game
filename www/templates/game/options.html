@@ -1,0 +1,27 @@
+    <ion-view view-title="Start game">
+		<ion-content>
+			<label class="form-label">Game type</label>			
+			<ion-radio name="gameType" ng-model="gameOptions.type" value="casual">Casual</ion-radio>
+			<ion-radio name="gameType" ng-model="gameOptions.type" value="competative">Competative</ion-radio>
+
+			<label class="form-label">Game length</label>			
+			<ion-radio name="gameLength" ng-model="gameOptions.length" value="single">Single</ion-radio>
+			<ion-radio name="gameLength" ng-model="gameOptions.length" value="match">Best-of match</ion-radio>
+			
+			<div ng-show="gameOptions.length === 'match'">
+				<label class="form-label">Number of rounds</label>
+				<ion-radio name="numRounds" ng-model="gameOptions.rounds" value="3">3</ion-radio>
+				<ion-radio name="numRounds" ng-model="gameOptions.rounds" value="5">5</ion-radio>			
+				<ion-radio name="numRounds" ng-model="gameOptions.rounds" value="7">7</ion-radio>			
+			</div>
+			<label class="form-label">Total - {{ gameOptions.total }}</label>
+			<div class="item range">
+  				<span>5</span>
+  				<input type="range" ng-model="gameOptions.total" min="5" max="20" step="1">
+  				<span>20</span>
+			</div>
+			
+			<a href="#/app/choose-teams"class="button button-balanced button-full" 
+			ng-click="setOptions(gameOptions.type, gameOptions.length, gameOptions.total, gameOptions.rounds)">Next</a>
+		</ion-content>
+    </ion-view>

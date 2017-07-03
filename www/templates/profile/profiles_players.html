@@ -1,0 +1,24 @@
+    <ion-view view-title="Player profiles">
+		<ion-content>
+			<div class="list list-inset">
+  				<label class="item item-input">
+    				<i class="icon ion-search placeholder-icon"></i>
+    				<input type="text" placeholder="Search..." ng-model="search.filter">
+  				</label>
+			</div>
+
+			<ion-list>
+				<ion-item class="item item-avatar" ng-click="showProfile('player', item.id)"
+				ng-repeat="item in playerProfiles | filter: { name:search.filter} | orderBy: 'name'">
+					<div ng-switch="item.avatar || 'null'">
+						<div ng-switch-when="null" class="no-pic small">
+							<i class="ion-icon ion-person"></i>	
+						</div>
+						<img class="item-image" ng-switch-default ng-src="{{ item.avatar }}" alt="{{ item.name }} photo">
+					</div>
+					<h2>{{ item.name }}</h2>
+					<p>{{ item.bio }}</p>
+				</ion-item>
+			</ion-list>
+		</ion-content>
+    </ion-view>

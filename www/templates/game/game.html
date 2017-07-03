@@ -1,0 +1,44 @@
+    <ion-view view-title="Game">
+		<ion-content>
+			<div class="list card game-scoreboard">
+				<div class="item item-divider row scoreboard-header">
+			    	<div class="col col-50">
+			    		<h2>{{ teams[0].name }}</h2>
+			    	</div>
+			    	<div class="col col-50">
+			    		<h2>{{ teams[1].name }}<h2>
+			    	</div>
+			  	</div>
+
+		  		<div class="item item-body row scoreboard-body">
+					<div class="col team-info left">
+						<div class="players">
+							<p>{{ teams[0].players[0].name }}</p>
+							<p>{{ teams[0].players[1].name }}</p>
+						</div>
+						<div class="team-score">{{ teams[0].score }}</div>
+						<div ng-if="isMatch" class="team-rounds">{{ teams[0].rounds }}</div>
+					</div>
+					<div class="col col-10 col-center separator">:</div>
+					<div class="col team-info right">
+						<div class="players">
+							<p>{{ teams[1].players[0].name }}</p>
+							<p>{{ teams[1].players[1].name }}</p>
+						</div>
+						<div class="team-score">{{ teams[1].score }}</div>
+						<div ng-if="isMatch" class="team-rounds">{{ teams[1].rounds }}</div>
+					</div>
+			  	</div>
+			</div>
+
+			<button ng-hide="roundStarted" class="button button-large button-full button-assertive" 
+			ng-click="generateWord()">Generate {{ !wordGenerated ? 'word' : 'new' }}</button>
+
+			<div class="the-word" ng-hide="roundStarted">{{ word }}</div>
+
+			<button ng-show="wordGenerated && !roundStarted" class="button button-large button-full button-calm" 
+			ng-click="beginRound(word)">Play</button>
+			<button ng-show="roundStarted" class="button button-large button-full button-balanced" 
+			ng-click="openPointsMenu()">Word guessed</button>
+		</ion-content>
+    </ion-view>
